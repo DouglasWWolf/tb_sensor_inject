@@ -1,0 +1,58 @@
+# Set the size of a frame in bytes
+axireg 0x1004 1024
+
+ TRACER_ENABLE=0x4000
+  TRACER_INDEX=0x4004
+   TRACER_CELL=0x4008
+
+  FIFO_RUN=0x2000
+FIFO_CLEAR=0x2004
+ FIFO_LOAD=0x2008
+
+ axireg $FIFO_RUN 0
+ axireg $FIFO_CLEAR 1
+ axireg -dec $FIFO_LOAD
+ axireg $FIFO_LOAD 0x28
+ axireg $FIFO_LOAD 0x38
+ axireg $FIFO_LOAD 0x48
+ axireg -dec $FIFO_LOAD
+ axireg $FIFO_RUN  1
+
+
+axireg $TRACER_ENABLE 0x3F
+
+# Cycle 4, byte 1
+axireg $TRACER_INDEX 0
+axireg $TRACER_CELL $((4*64 + 1))
+
+# Cycle 5, byte 2
+axireg $TRACER_INDEX 1
+axireg $TRACER_CELL $((5*64 + 2))
+
+# Cycle 8, byte 4
+axireg $TRACER_INDEX 2
+axireg $TRACER_CELL $((8*64 + 4))
+
+# Cycle 8, byte 63
+axireg $TRACER_INDEX 3
+axireg $TRACER_CELL $((8*64 + 63))
+
+# Cycle 15, byte 0
+axireg $TRACER_INDEX 4
+axireg $TRACER_CELL $((15*64 + 0))
+
+# Cycle 0, byte 0
+axireg $TRACER_INDEX 5
+axireg $TRACER_CELL $((0*64 + 0))
+
+
+
+
+# And generate two frames
+axireg 0x1000 6
+
+
+
+
+
+
