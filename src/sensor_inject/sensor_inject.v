@@ -24,12 +24,12 @@ module sensor_inject # (parameter DW=512)
     // The output stream
     output reg[DW-1:0] axis_out_tdata,
     output             axis_out_tvalid,
-    input              axis_out_tready,
+    input              axis_out_tready, 
 
     // The cell-data vector
     input [7:0] axis_vector_tdata,
     input       axis_vector_tvalid,
-    output      axis_vector_tready,
+    output reg  axis_vector_tready,
 
     // The size of a sensor-frame, in bytes
     input[31:0] frame_size,
@@ -101,23 +101,26 @@ for (i=0; i<TRACER_COUNT; i=i+1) begin
 end
 //=============================================================================
 
-// Vector-state machine, reads tracer values from a fifo
-reg[1:0] vsm_state;
 
-// The value to be stamped into this frame, and into the next frame
-reg[7:0] tracer_value, next_tracer_value;
-
-// Control when we want to receive the next tracer value
-assign axis_vector_tready = (resetn == 1) & (vsm_state < 2);
 
 //=============================================================================
-// This block keeps "tracer_value" and "next_tracer_value" populated
+// This block keeps "tracer_value" populated
 //
 // This block assumes that once axis_vector_tvalid goes high, it will always
 // be high, and that if it goes low then we should reset the state machine
 //=============================================================================
+// Vector-state machine, reads tracer values from a fifo
+reg vsm_state;
+
+// The value to be stamped into the data frames
+reg[7:0] tracer_value;
+//-----------------------------------------------------------------------------
 always @(posedge clk) begin
     
+    // This will strobe high for 1 cycle at a time
+    axis_vector_tready <= 0;
+
+    // Are we in reset?  "TVALID low" indicates the ctl module halted FIFO output
     if (resetn == 0 || axis_vector_tvalid == 0) begin
         vsm_state <= 0;
     end
@@ -126,26 +129,22 @@ always @(posedge clk) begin
 
         // Fetch the tracer-value we're going to stamp into the first frame 
         0:  begin
-                tracer_value <= axis_vector_tdata;
-                vsm_state    <= 1;
+                tracer_value       <= axis_vector_tdata;
+                axis_vector_tready <= 1;
+                vsm_state          <= 1;
             end
         
-        // Fetch the tracer value for the next frame
-        1:  begin
-                next_tracer_value <= axis_vector_tdata;
-                vsm_state         <= 2;
-            end
-
         // When we see the last cycle of the frame, fetch the next tracer value
-        2:  if (axis_in_tready & axis_in_tvalid & last_cycle_in_frame) begin
-                tracer_value <= next_tracer_value;
-                vsm_state    <= 1;
+        1:  if (axis_in_tready & axis_in_tvalid & last_cycle_in_frame) begin
+                tracer_value       <= axis_vector_tdata;
+                axis_vector_tready <= 1;
             end
 
     endcase
 
 end
 //=============================================================================
+
 
 //=============================================================================
 // This block counts data-cycles within the frame that is streaming by. 

@@ -46,8 +46,6 @@ axireg $TRACER_INDEX 5
 axireg $TRACER_CELL $((0*64 + 0))
 
 
-
-
 # And generate two frames
 axireg 0x1000 6
 

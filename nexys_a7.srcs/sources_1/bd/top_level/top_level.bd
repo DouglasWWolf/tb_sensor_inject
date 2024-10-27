@@ -27,7 +27,7 @@
         "sensor_inject_ctl": ""
       },
       "framegen": "",
-      "axi_sensor_inject_ctl_0": "",
+      "axi_sensor_inject_ctl": "",
       "sensor_trace_ctl": ""
     },
     "interface_ports": {
@@ -1997,11 +1997,11 @@
           }
         }
       },
-      "axi_sensor_inject_ctl_0": {
+      "axi_sensor_inject_ctl": {
         "vlnv": "xilinx.com:module_ref:axi_sensor_inject_ctl:1.0",
         "xci_name": "top_level_axi_sensor_inject_ctl_0_0",
         "xci_path": "ip/top_level_axi_sensor_inject_ctl_0_0/top_level_axi_sensor_inject_ctl_0_0.xci",
-        "inst_hier_path": "axi_sensor_inject_ctl_0",
+        "inst_hier_path": "axi_sensor_inject_ctl",
         "reference_info": {
           "ref_type": "hdl",
           "ref_name": "axi_sensor_inject_ctl",
@@ -2618,7 +2618,7 @@
       },
       "system_interconnect_M02_AXI": {
         "interface_ports": [
-          "axi_sensor_inject_ctl_0/S_AXI",
+          "axi_sensor_inject_ctl/S_AXI",
           "system_interconnect/M02_AXI"
         ]
       }
@@ -2638,31 +2638,31 @@
       },
       "axi_sensor_inject_ctl_0_o_FIFO_CLEAR": {
         "ports": [
-          "axi_sensor_inject_ctl_0/o_FIFO_CLEAR",
+          "axi_sensor_inject_ctl/o_FIFO_CLEAR",
           "sensor_inject/i_FIFO_CLEAR"
         ]
       },
       "axi_sensor_inject_ctl_0_o_FIFO_CLEAR_wstrobe": {
         "ports": [
-          "axi_sensor_inject_ctl_0/o_FIFO_CLEAR_wstrobe",
+          "axi_sensor_inject_ctl/o_FIFO_CLEAR_wstrobe",
           "sensor_inject/i_FIFO_CLEAR_wstrobe"
         ]
       },
       "axi_sensor_inject_ctl_0_o_FIFO_LOAD": {
         "ports": [
-          "axi_sensor_inject_ctl_0/o_FIFO_LOAD",
+          "axi_sensor_inject_ctl/o_FIFO_LOAD",
           "sensor_inject/i_FIFO_LOAD"
         ]
       },
       "axi_sensor_inject_ctl_0_o_FIFO_LOAD_wstrobe": {
         "ports": [
-          "axi_sensor_inject_ctl_0/o_FIFO_LOAD_wstrobe",
+          "axi_sensor_inject_ctl/o_FIFO_LOAD_wstrobe",
           "sensor_inject/i_FIFO_LOAD_wstrobe"
         ]
       },
       "axi_sensor_inject_ctl_0_o_RUN": {
         "ports": [
-          "axi_sensor_inject_ctl_0/o_RUN",
+          "axi_sensor_inject_ctl/o_RUN",
           "sensor_inject/i_RUN"
         ]
       },
@@ -2675,13 +2675,13 @@
       "sensor_inject_o_FIFO_COUNT": {
         "ports": [
           "sensor_inject/o_FIFO_COUNT",
-          "axi_sensor_inject_ctl_0/i_FIFO_COUNT"
+          "axi_sensor_inject_ctl/i_FIFO_COUNT"
         ]
       },
       "sensor_inject_o_FIFO_STATUS": {
         "ports": [
           "sensor_inject/o_FIFO_STATUS",
-          "axi_sensor_inject_ctl_0/i_FIFO_STATUS"
+          "axi_sensor_inject_ctl/i_FIFO_STATUS"
         ]
       },
       "sensor_inject_rd_tracer_cell": {
@@ -2727,7 +2727,7 @@
           "data_consumer/resetn",
           "sensor_inject/resetn",
           "framegen/resetn",
-          "axi_sensor_inject_ctl_0/resetn"
+          "axi_sensor_inject_ctl/resetn"
         ]
       },
       "source_100mhz_peripheral_aresetn": {
@@ -2746,7 +2746,7 @@
           "system_ila/clk",
           "sensor_inject/clk",
           "framegen/clk",
-          "axi_sensor_inject_ctl_0/clk",
+          "axi_sensor_inject_ctl/clk",
           "sensor_trace_ctl/clk"
         ]
       }
@@ -2757,7 +2757,7 @@
           "M_AXI": {
             "segments": {
               "SEG_axi_sensor_inject_ctl_0_reg0": {
-                "address_block": "/axi_sensor_inject_ctl_0/S_AXI/reg0",
+                "address_block": "/axi_sensor_inject_ctl/S_AXI/reg0",
                 "offset": "0x0000000000002000",
                 "range": "256"
               },

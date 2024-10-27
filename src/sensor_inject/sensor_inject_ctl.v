@@ -96,12 +96,16 @@ end
 
 
 //=============================================================================
-// The block keeps track of the number of entries in the FIFO
+// The block keeps track of the number of entries in the FIFO.  Note that
+// we're only we're only truly adding entries to the FIFO when i_RUN is 0.
+// When i_RUN is 1, the entries going to the FIFO are being recycled from the
+// output back to the input, and therefore don't increase the number of
+// entries in the FIFO.
 //=============================================================================
 always @(posedge clk) begin
     if (resetn == 0 || clear_fifo)
         o_FIFO_COUNT <= 0;
-    else if (fifo_in_tvalid & fifo_in_tready)
+    else if ((i_RUN == 0) & fifo_in_tvalid & fifo_in_tready)
         o_FIFO_COUNT <= o_FIFO_COUNT + 1;
 end
 //=============================================================================
